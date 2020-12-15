@@ -8,6 +8,16 @@ def modText(var, cor, familia, estilo, tamanho):
     var.setSize(tamanho)
     return var
 
+def modNode(var1, cor, var2, familia, estilo, tela):
+    var1.setFill(cor)
+    var1.setOutline(cor)
+    var1.draw(tela)
+
+    var2.setFace(familia)
+    var2.setStyle(estilo)
+    var2.draw(tela)
+    return var1, var2
+
 def menuSelect(tela, menu):
     for itens in menu:
         itens.draw(tela)
@@ -111,24 +121,44 @@ def menuSelect(tela, menu):
     return sl_tp, sl_nm
 
 def grafNormal(tela, tipo):
-    txt = Text(Point(400,70),'Informe as informações antes de prosseguir')
-    txt = modText(txt,'yellow','courier', 'bold', 26)
+    arq = open('grafo.txt')
+    nodes_arestas_fonte = arq.readline().split()
+    ligacoes = arq.readlines()
+    arq.close()
 
-    nodos = int(input('Informe a quantidade de Nodos: '))
-    arestas = int(input('Informe a quantidade de Arestas: '))
+    nodes = int(nodes_arestas_fonte[0])
+    arestas = int(nodes_arestas_fonte[1])
+    fonte = int(nodes_arestas_fonte[2])
+
+    lista_adj = []
+    for n in range(nodes+1):
+        lista_adj.append([])
+
+    for partes in ligacoes:
+        partes.split()
+        u = int(partes[0])
+        v = int(partes[2])
+
+        lista_adj[u].append(v)
+        lista_adj[v].append(u)
     
-    grafo = []
-    for i in range(nodos):
-        grafo.append([])
-
-    for i in range(arestas):
-        ent = input(f'Informe a {i+1} ligação: ')
-        grafo[int(ent[0])].append(int(ent[1]))
-
-    posX = 800//nodos
-    posY = 600//nodos
+    posX = 700//nodes
+    posY = 500//nodes
 
     grafo_desenho = []
+    for i in range(1, nodes+1):
+        desenho = Circle(Point(posX*i - posX + (3*posX//4), posY), posX//4)
+        txt_num = Text(Point(posX*i - posX + (3*posX//4), posY), str(i))
+        desenho, txt_num = modNode(desenho, 'white', txt_num, 'courier', 'bold', tela)
+        grafo_desenho.append(desenho)
+        grafo_desenho.append(txt_num)
+
+    tela.getMouse()
+
+
+    tela.getMouse()
+    for itens in grafo_desenho:
+        itens.undraw()
 
 def grafMatriz(tela, tipo):
     
@@ -202,9 +232,9 @@ def grafMatriz(tela, tipo):
                     if  (matriz[lin][col] == '.' or matriz[lin][col] == 'f') and not(visitados[lin][col]):
                         visitados[lin][col] = True
                         pilha.append((lin,col))
-            sleep(0.5)
+            sleep(0.3)
             matriz_desenho[pos[0]][pos[1]].setFill(color_rgb(0, 153, 0))
-            sleep(0.5)
+            sleep(0.3)
     else:
         fila = [ponto_ini]
         while len(fila) > 0:
@@ -259,6 +289,8 @@ def main():
             grafNormal(tela, busca_tp)
         elif tip == 2:
             grafMatriz(tela, busca_tp)
+        else:
+            break
 
     tela.close()
 
