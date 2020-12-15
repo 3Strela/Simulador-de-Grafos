@@ -1,7 +1,6 @@
 from graphics import *
 from time import sleep
 
-
 def modText(var, cor, familia, estilo, tamanho):
     var.setFill(cor)
     var.setFace(familia)
