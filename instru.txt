@@ -1,0 +1,17 @@
+1. Primeiramente, preencha o txt: grafo.txt ou matriz.txt
+
+2. Preencha grafo.txt caso queira vizualizar uma busca em nodos/ligacoes
+
+3. Preencha matriz.txt caso queira vizualizar uma busca em matriz
+
+4. A explicacao dos dados necessarios esta presente no respectivo txt
+
+5. No menu, voce deve escolher qual o tipo de busca pretende vizualizar
+   (DFS ou BFS)
+
+6. Em seguida, selecione em qual meio deseja que seja feita a busca 
+   (Nodos ou Matriz)
+
+7. Prescione a tecla 'Enter' para iniciar e/ou pausar quando bem entender
+
+8. Quando a busca finalizar, prescione a tecla 'Esc' para voltar ao menu
